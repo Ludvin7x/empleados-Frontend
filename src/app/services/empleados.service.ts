@@ -7,7 +7,7 @@ export interface Empleado {
   id: number;
   nombre: string;
   apellido: string;
-  departamento_id: number; // Asegúrate de usar departamento_id en lugar de departamento
+  departamento_id: number;
   fecha_contratacion: string;
   nombre_cargo: string;
 }
