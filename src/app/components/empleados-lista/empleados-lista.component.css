@@ -1,0 +1,73 @@
+/* Estilo general para la tabla */
+table {
+  width: 80%; /* Ancho del 80% */
+  margin: 20px auto; /* Centrar la tabla */
+  border-collapse: collapse; /* Elimina espacios entre bordes */
+}
+
+/* Estilo para las cabeceras de la tabla */
+thead {
+  background-color: #007bff; /* Color de fondo de las cabeceras */
+  color: white; /* Color del texto de las cabeceras */
+}
+
+th, td {
+  padding: 12px; /* Espaciado interno */
+  text-align: left; /* Alinear texto a la izquierda */
+  border: 1px solid #dee2e6; /* Borde de la celda */
+}
+
+/* Estilo para las filas */
+tbody tr:nth-child(even) {
+  background-color: #f8f9fa; /* Color de fondo para filas pares */
+}
+
+tbody tr:hover {
+  background-color: #e2e6ea; /* Color al pasar el ratón sobre la fila */
+}
+
+/* Estilo para el contenedor de botones */
+.button-group {
+  display: flex; /* Usar flexbox para alinear botones */
+  gap: 10px; /* Espacio entre botones */
+}
+
+/* Estilo para el botón de editar */
+.btn-edit {
+  background-color: #28a745; /* Color de fondo verde */
+  color: white; /* Color del texto */
+  border: none; /* Sin bordes */
+  border-radius: 5px; /* Bordes redondeados */
+  padding: 5px 10px; /* Espaciado interno */
+  cursor: pointer; /* Cambiar el cursor al pasar el ratón */
+  transition: background-color 0.3s ease; /* Transición suave en el color de fondo */
+}
+
+.btn-edit:hover {
+  background-color: #218838; /* Color al pasar el ratón */
+}
+
+/* Estilo para el botón de eliminar */
+.btn-delete {
+  background-color: #dc3545; /* Color de fondo rojo */
+  color: white; /* Color del texto */
+  border: none; /* Sin bordes */
+  border-radius: 5px; /* Bordes redondeados */
+  padding: 5px 10px; /* Espaciado interno */
+  cursor: pointer; /* Cambiar el cursor al pasar el ratón */
+  transition: background-color 0.3s ease; /* Transición suave en el color de fondo */
+}
+
+.btn-delete:hover {
+  background-color: #c82333; /* Color al pasar el ratón */
+}
+
+/* Estilo para enlaces de edición */
+a {
+  color: #007bff; /* Color del enlace */
+  text-decoration: none; /* Sin subrayado */
+}
+
+a:hover {
+  text-decoration: underline; /* Subrayar al pasar el ratón */
+}

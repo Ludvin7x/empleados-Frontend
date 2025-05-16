@@ -1,0 +1,77 @@
+/* Estilo general para el formulario */
+.empleado-form {
+    max-width: 600px; /* Ancho máximo del formulario */
+    margin: 20px auto; /* Centrar el formulario */
+    padding: 20px; /* Espaciado interno */
+    background-color: #ffffff; /* Color de fondo blanco */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  }
+  
+  /* Estilo para grupos de formulario */
+  .form-group {
+    margin-bottom: 15px; /* Espaciado entre campos */
+  }
+  
+  /* Estilo para etiquetas */
+  label {
+    font-weight: bold; /* Hacer las etiquetas en negrita */
+    margin-bottom: 5px; /* Espacio entre la etiqueta y el campo */
+    display: block; /* Asegura que la etiqueta ocupe toda la línea */
+  }
+  
+  /* Estilo para los campos de entrada */
+  .form-control {
+    width: 100%; /* Ancho completo */
+    padding: 10px; /* Espaciado interno */
+    border: 1px solid #ced4da; /* Borde gris */
+    border-radius: 4px; /* Bordes redondeados */
+    box-sizing: border-box; /* Incluir el padding en el cálculo del ancho */
+    transition: border-color 0.3s; /* Transición suave en el color del borde */
+  }
+  
+  /* Efecto al enfocarse en el campo */
+  .form-control:focus {
+    border-color: #007bff; /* Cambiar el color del borde al enfocar */
+    outline: none; /* Eliminar el contorno predeterminado */
+  }
+  
+  /* Estilo para el botón de enviar */
+  .btn-submit {
+    background-color: #28a745; /* Color de fondo del botón */
+    color: white; /* Color del texto del botón */
+    border: none; /* Sin bordes */
+    border-radius: 5px; /* Bordes redondeados */
+    padding: 10px 20px; /* Espaciado interno */
+    font-size: 1rem; /* Tamaño del texto */
+    cursor: pointer; /* Cambiar el cursor al pasar el ratón */
+    transition: background-color 0.3s ease; /* Transición suave en el color de fondo */
+  }
+  
+  .btn-submit:hover {
+    background-color: #218838; /* Color al pasar el ratón */
+  }
+  
+  .alert {
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .alert-success {
+    border: 1px solid #d4edda;
+    background-color: #d4edda;
+    color: #155724;
+  }
+  
+  .alert-danger {
+    border: 1px solid #f8d7da;
+    background-color: #f8d7da;
+    color: #721c24;
+  }
+  
+  .error-message {
+    color: #d9534f; /* Color de mensaje de error */
+    margin-top: 5px;
+    font-size: 0.9em;
+  }

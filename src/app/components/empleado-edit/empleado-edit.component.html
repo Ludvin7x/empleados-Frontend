@@ -1,0 +1,45 @@
+<form [formGroup]="empleadoForm" (ngSubmit)="onSubmit()" class="empleado-form">
+  <div class="form-group">
+    <label for="nombre">Nombre:</label>
+    <input id="nombre" formControlName="nombre" type="text" class="form-control" required>
+    <div *ngIf="empleadoForm.get('nombre')?.invalid && (empleadoForm.get('nombre')?.touched || empleadoForm.get('nombre')?.dirty)" class="error-message">
+      El nombre es requerido.
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="apellido">Apellido:</label>
+    <input id="apellido" formControlName="apellido" type="text" class="form-control" required>
+    <div *ngIf="empleadoForm.get('apellido')?.invalid && (empleadoForm.get('apellido')?.touched || empleadoForm.get('apellido')?.dirty)" class="error-message">
+      El apellido es requerido.
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="departamento">Departamento:</label>
+    <select id="departamento" formControlName="departamento_id" class="form-control" required>
+      <option *ngFor="let dept of departamentos" [value]="dept.id">{{ dept.nombre }}</option>
+    </select>
+    <div *ngIf="empleadoForm.get('departamento_id')?.invalid && (empleadoForm.get('departamento_id')?.touched || empleadoForm.get('departamento_id')?.dirty)" class="error-message">
+      El departamento es requerido.
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="nombre_cargo">Cargo:</label>
+    <input id="nombre_cargo" formControlName="nombre_cargo" type="text" class="form-control" required>
+    <div *ngIf="empleadoForm.get('nombre_cargo')?.invalid && (empleadoForm.get('nombre_cargo')?.touched || empleadoForm.get('nombre_cargo')?.dirty)" class="error-message">
+      El cargo es requerido.
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="fechaContratacion">Fecha de Contratación:</label>
+    <input id="fechaContratacion" formControlName="fecha_contratacion" type="date" class="form-control" required>
+    <div *ngIf="empleadoForm.get('fecha_contratacion')?.invalid && (empleadoForm.get('fecha_contratacion')?.touched || empleadoForm.get('fecha_contratacion')?.dirty)" class="error-message">
+      La fecha de contratación es requerida.
+    </div>
+  </div>
+
+  <button type="submit" class="btn-submit">Guardar</button>
+</form>
