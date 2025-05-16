@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 export interface Empleado {
   id: number;
@@ -15,7 +16,7 @@ export interface Empleado {
   providedIn: 'root'
 })
 export class EmpleadosService {
-  private apiUrl = 'http://127.0.0.1:5000/api/empleados/';
+  private apiUrl = `${environment.apiUrl}/empleados/`;
 
   constructor(private http: HttpClient) {}
 
