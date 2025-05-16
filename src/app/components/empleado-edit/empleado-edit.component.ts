@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { EmpleadosService } from '../../services/empleados.service';
+import { EmpleadosService, Empleado } from '../../services/empleados.service';
 import { DepartamentosService, Departamento } from '../../services/departamentos.service';
 import Swal from 'sweetalert2';
 
@@ -13,7 +13,6 @@ import Swal from 'sweetalert2';
   templateUrl: './empleado-edit.component.html',
   styleUrls: ['./empleado-edit.component.css']
 })
-
 export class EmpleadoEditComponent implements OnInit {
   empleadoForm: FormGroup;
   departamentos: Departamento[] = [];
@@ -27,11 +26,11 @@ export class EmpleadoEditComponent implements OnInit {
     private router: Router
   ) {
     this.empleadoForm = this.fb.group({
-      nombre: [''],
-      apellido: [''],
-      departamento_id: [''],
-      nombre_cargo: [''],
-      fecha_contratacion: ['']
+      first_name: [''],
+      last_name: [''],
+      department_id: [''],
+      job_title: [''],
+      hire_date: ['']
     });
   }
 
@@ -46,14 +45,20 @@ export class EmpleadoEditComponent implements OnInit {
   }
 
   cargarDepartamentos(): void {
-    this.departamentosService.getDepartamentos().subscribe((data) => {
+    this.departamentosService.getDepartamentos().subscribe((data: Departamento[]) => {
       this.departamentos = data;
     });
   }
 
   cargarEmpleado(id: number): void {
-    this.empleadosService.getEmpleado(id).subscribe((data) => {
-      this.empleadoForm.patchValue(data);
+    this.empleadosService.getEmpleado(id).subscribe((data: Empleado) => {
+      this.empleadoForm.patchValue({
+        first_name: data.first_name,
+        last_name: data.last_name,
+        department_id: data.department?.id || null,
+        job_title: data.job_title,
+        hire_date: data.hire_date
+      });
     });
   }
 
@@ -61,21 +66,21 @@ export class EmpleadoEditComponent implements OnInit {
     if (this.empleadoForm.valid) {
       if (this.empleadoId) {
         this.empleadosService.updateEmpleado(this.empleadoId, this.empleadoForm.value).subscribe({
-          next: (response) => {
+          next: (response: Empleado) => {
             Swal.fire({
               icon: 'success',
               title: 'Éxito',
               text: 'Empleado actualizado con éxito!',
               confirmButtonText: 'OK'
             }).then(() => {
-              this.router.navigate(['/empleados']); 
+              this.router.navigate(['/empleados']);
             });
           },
-          error: (error) => {
+          error: (error: any) => {
             Swal.fire({
               icon: 'error',
               title: 'Error',
-              text: 'Error al actualizar el empleado: ' + (error.error.message || 'Error desconocido, contacte a soporte!'),
+              text: 'Error al actualizar el empleado: ' + (error.error?.message || 'Error desconocido, contacte a soporte!'),
             });
           }
         });

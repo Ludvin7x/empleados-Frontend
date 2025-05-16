@@ -13,16 +13,14 @@
   <tbody>
     <tr *ngFor="let empleado of empleados">
       <td>{{ empleado.id }}</td>
-      <td>{{ empleado.nombre }}</td>
-      <td>{{ empleado.apellido }}</td>
-      <td>{{ obtenerNombreDepartamento(empleado.departamento_id) }}</td>
-      <td>{{ empleado.nombre_cargo }}</td>
-      <td>{{ empleado.fecha_contratacion | date: 'shortDate' }}</td>
+      <td>{{ empleado.first_name }}</td>
+      <td>{{ empleado.last_name }}</td>
+      <td>{{ empleado.department?.name || 'Desconocido' }}</td>
+      <td>{{ empleado.job_title }}</td>
+      <td>{{ empleado.hire_date | date: 'shortDate' }}</td>
       <td>
-        <div class="button-group">
-          <button class="btn-edit" [routerLink]="['/empleados/editar', empleado.id]">Editar</button>
-          <button (click)="eliminarEmpleado(empleado.id)" class="btn-delete">Eliminar</button>
-        </div>
+        <button class="btn-edit" [routerLink]="['/empleados/editar', empleado.id]">Editar</button>
+        <button class="btn-delete" (click)="eliminarEmpleado(empleado.id)">Eliminar</button>
       </td>
     </tr>
   </tbody>
