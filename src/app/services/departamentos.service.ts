@@ -5,14 +5,14 @@ import { environment } from '../../environments/environment';
 
 export interface Departamento {
   id: number; 
-  nombre: string;
+  name: string;
 }
 
 @Injectable({
   providedIn: 'root',
 })
 export class DepartamentosService {
-  private apiUrl = `${environment.apiUrl}/departamentos/`;
+  private apiUrl = `${environment.apiUrl}/departamentos`;
 
   constructor(private http: HttpClient) {}
 

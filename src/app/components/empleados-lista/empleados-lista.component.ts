@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { EmpleadosService, Empleado } from '../../services/empleados.service'; 
+import { EmpleadosService, Empleado } from '../../services/empleados.service';
 import Swal from 'sweetalert2';
+import { LucideAngularModule } from 'lucide-angular';
 
 @Component({
   selector: 'app-empleados-lista',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, LucideAngularModule],
   templateUrl: './empleados-lista.component.html',
-  styleUrls: ['./empleados-lista.component.css']
 })
 export class EmpleadosListaComponent implements OnInit {
   empleados: Empleado[] = [];

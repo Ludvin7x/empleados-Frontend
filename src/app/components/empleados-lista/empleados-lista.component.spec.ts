@@ -1,23 +1,53 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { EmpleadosService, Empleado } from '../../services/empleados.service';
+import Swal from 'sweetalert2';
+import { LucideAngularModule } from 'lucide-angular';
 
-import { EmpleadosListaComponent } from './empleados-lista.component';
+@Component({
+  selector: 'app-empleados-lista',
+  standalone: true,
+  imports: [CommonModule, RouterModule, LucideAngularModule],
+  templateUrl: './empleados-lista.component.html',
+})
+export class EmpleadosListaComponent implements OnInit {
+  empleados: Empleado[] = [];
 
-describe('EmpleadosListaComponent', () => {
-  let component: EmpleadosListaComponent;
-  let fixture: ComponentFixture<EmpleadosListaComponent>;
+  constructor(private empleadosService: EmpleadosService) {}
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [EmpleadosListaComponent]
-    })
-    .compileComponents();
+  ngOnInit(): void {
+    this.cargarEmpleados();
+  }
 
-    fixture = TestBed.createComponent(EmpleadosListaComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+  cargarEmpleados(): void {
+    this.empleadosService.getEmpleados().subscribe(data => {
+      this.empleados = data;
+    });
+  }
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+  eliminarEmpleado(id: number): void {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: "No podrás deshacer esta acción!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.empleadosService.deleteEmpleado(id).subscribe({
+          next: () => {
+            this.cargarEmpleados();
+            Swal.fire('Eliminado', 'Empleado eliminado con éxito.', 'success');
+          },
+          error: (error) => {
+            Swal.fire('Error', 'No se pudo eliminar el empleado.', 'error');
+            console.error(error);
+          }
+        });
+      }
+    });
+  }
+}

@@ -1,23 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router'; 
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractControl } from '@angular/forms';
 import { DepartamentosService, Departamento } from '../../services/departamentos.service';
 import { EmpleadosService } from '../../services/empleados.service';
-import Swal from 'sweetalert2'; // Importa SweetAlert2
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-empleado-form',
   standalone: true,
   imports: [CommonModule, RouterModule, ReactiveFormsModule],
   templateUrl: './empleado-form.component.html',
-  styleUrls: ['./empleado-form.component.css']
 })
 export class EmpleadoFormComponent implements OnInit {
   empleadoForm: FormGroup;
-  departamentos: Departamento[] = []; 
-  successMessage: string = ''; 
-  errorMessage: string = '';   
+  departamentos: Departamento[] = [];
+  successMessage: string = '';
+  errorMessage: string = '';
 
   constructor(
     private fb: FormBuilder,
@@ -26,12 +25,29 @@ export class EmpleadoFormComponent implements OnInit {
     private router: Router 
   ) {
     this.empleadoForm = this.fb.group({
-      nombre: [''],
-      apellido: [''],
-      departamento_id: [''], 
-      nombre_cargo: [''],
-      fecha_contratacion: [''] 
+      first_name: ['', Validators.required],
+      last_name: ['', Validators.required],
+      department_id: ['', Validators.required],
+      job_title: ['', Validators.required],
+      hire_date: ['', Validators.required],
     });
+  }
+
+  // Getters para los controles, mejora legibilidad en el template
+  get first_name(): AbstractControl {
+    return this.empleadoForm.get('first_name')!;
+  }
+  get last_name(): AbstractControl {
+    return this.empleadoForm.get('last_name')!;
+  }
+  get department_id(): AbstractControl {
+    return this.empleadoForm.get('department_id')!;
+  }
+  get job_title(): AbstractControl {
+    return this.empleadoForm.get('job_title')!;
+  }
+  get hire_date(): AbstractControl {
+    return this.empleadoForm.get('hire_date')!;
   }
 
   ngOnInit(): void {
@@ -39,39 +55,50 @@ export class EmpleadoFormComponent implements OnInit {
   }
 
   cargarDepartamentos(): void {
-    this.departamentosService.getDepartamentos().subscribe((data) => {
-      this.departamentos = data;
+    this.departamentosService.getDepartamentos().subscribe({
+      next: (data) => {
+        this.departamentos = data;
+      },
+      error: (error) => {
+        console.error('Error cargando departamentos:', error);
+        Swal.fire('Error', 'No se pudieron cargar los departamentos.', 'error');
+      },
     });
   }
 
   onSubmit(): void {
-    if (this.empleadoForm.valid) {
-      this.empleadosService.addEmpleado(this.empleadoForm.value).subscribe(
-        (response) => {
-          Swal.fire({
-            icon: 'success',
-            title: 'Éxito',
-            text: 'Empleado agregado con éxito!',
-          }).then((result) => {
-            if (result.isConfirmed) {
-              this.router.navigate(['/empleados']);
-            }
-          });
-          this.errorMessage = ''; 
-        },
-        (error) => {
-          console.error('Error al agregar empleado:', error);
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'Error al agregar empleado: ' + (error.error.message || 'Error desconocido, contacte a soporte!'),
-          });
-          this.successMessage = ''; 
-        }
-      );
-    } else {
-      this.errorMessage = 'Por favor, complete todos los campos requeridos.';
-      this.successMessage = ''; 
+    this.successMessage = '';
+    this.errorMessage = '';
+
+    if (this.empleadoForm.invalid) {
+      // Marcar todos los controles como tocados para mostrar mensajes de validación
+      this.empleadoForm.markAllAsTouched();
+      Swal.fire('Atención', 'Por favor, complete todos los campos requeridos.', 'warning');
+      return;
     }
+
+    this.empleadosService.addEmpleado(this.empleadoForm.value).subscribe({
+      next: () => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Éxito',
+          text: 'Empleado agregado con éxito!',
+          confirmButtonText: 'Aceptar',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.router.navigate(['/empleados']);
+          }
+        });
+      },
+      error: (error) => {
+        console.error('Error al agregar empleado:', error);
+        this.errorMessage = error.error?.message || 'Error desconocido, contacte a soporte.';
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: this.errorMessage,
+        });
+      },
+    });
   }
 }

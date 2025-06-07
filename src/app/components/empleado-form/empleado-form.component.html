@@ -1,51 +1,110 @@
-<form [formGroup]="empleadoForm" (ngSubmit)="onSubmit()" class="empleado-form">
-  <div class="form-group">
-    <label for="nombre">Nombre:</label>
-    <input id="nombre" formControlName="nombre" type="text" class="form-control" required>
-    <div *ngIf="empleadoForm.get('nombre')?.invalid && (empleadoForm.get('nombre')?.touched || empleadoForm.get('nombre')?.dirty)" class="error-message">
+<form
+  [formGroup]="empleadoForm"
+  (ngSubmit)="onSubmit()"
+  class="max-w-2xl mx-auto p-6 bg-white rounded-xl shadow space-y-6"
+  novalidate
+>
+  <h2 class="text-xl font-semibold mb-6 text-center">Registrar Empleado</h2>
+
+  <!-- Nombre -->
+  <div>
+    <label for="first_name" class="block font-medium mb-1">Nombre:</label>
+    <input
+      id="first_name"
+      type="text"
+      formControlName="first_name"
+      class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      [class.border-red-500]="empleadoForm.get('first_name')?.invalid && (empleadoForm.get('first_name')?.dirty || empleadoForm.get('first_name')?.touched)"
+      required
+    />
+    <p *ngIf="empleadoForm.get('first_name')?.invalid && (empleadoForm.get('first_name')?.dirty || empleadoForm.get('first_name')?.touched)" class="text-sm text-red-600 mt-1">
       El nombre es requerido.
-    </div>
+    </p>
   </div>
 
-  <div class="form-group">
-    <label for="apellido">Apellido:</label>
-    <input id="apellido" formControlName="apellido" type="text" class="form-control" required>
-    <div *ngIf="empleadoForm.get('apellido')?.invalid && (empleadoForm.get('apellido')?.touched || empleadoForm.get('apellido')?.dirty)" class="error-message">
+  <!-- Apellido -->
+  <div>
+    <label for="last_name" class="block font-medium mb-1">Apellido:</label>
+    <input
+      id="last_name"
+      type="text"
+      formControlName="last_name"
+      class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      [class.border-red-500]="empleadoForm.get('last_name')?.invalid && (empleadoForm.get('last_name')?.dirty || empleadoForm.get('last_name')?.touched)"
+      required
+    />
+    <p *ngIf="empleadoForm.get('last_name')?.invalid && (empleadoForm.get('last_name')?.dirty || empleadoForm.get('last_name')?.touched)" class="text-sm text-red-600 mt-1">
       El apellido es requerido.
-    </div>
+    </p>
   </div>
 
-  <div class="form-group">
-    <label for="departamento">Departamento:</label>
-    <select id="departamento" formControlName="departamento_id" class="form-control" required>
-      <option *ngFor="let dept of departamentos" [value]="dept.id">{{ dept.nombre }}</option>
+  <!-- Departamento -->
+  <div>
+    <label for="department_id" class="block font-medium mb-1">Departamento:</label>
+    <select
+      id="department_id"
+      formControlName="department_id"
+      class="w-full border border-gray-300 rounded px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+      [class.border-red-500]="empleadoForm.get('department_id')?.invalid && (empleadoForm.get('department_id')?.dirty || empleadoForm.get('department_id')?.touched)"
+      required
+    >
+      <option value="" disabled selected>Seleccione un departamento</option>
+      <option *ngFor="let dept of departamentos" [value]="dept.id">{{ dept.name}}</option>
     </select>
-    <div *ngIf="empleadoForm.get('departamento_id')?.invalid && (empleadoForm.get('departamento_id')?.touched || empleadoForm.get('departamento_id')?.dirty)" class="error-message">
+    <p *ngIf="empleadoForm.get('department_id')?.invalid && (empleadoForm.get('department_id')?.dirty || empleadoForm.get('department_id')?.touched)" class="text-sm text-red-600 mt-1">
       El departamento es requerido.
-    </div>
+    </p>
   </div>
 
-  <div class="form-group">
-    <label for="nombre_cargo">Cargo:</label>
-    <input id="nombre_cargo" formControlName="nombre_cargo" type="text" class="form-control" required>
-    <div *ngIf="empleadoForm.get('nombre_cargo')?.invalid && (empleadoForm.get('nombre_cargo')?.touched || empleadoForm.get('nombre_cargo')?.dirty)" class="error-message">
+  <!-- Cargo -->
+  <div>
+    <label for="job_title" class="block font-medium mb-1">Cargo:</label>
+    <input
+      id="job_title"
+      type="text"
+      formControlName="job_title"
+      class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      [class.border-red-500]="empleadoForm.get('job_title')?.invalid && (empleadoForm.get('job_title')?.dirty || empleadoForm.get('job_title')?.touched)"
+      required
+    />
+    <p *ngIf="empleadoForm.get('job_title')?.invalid && (empleadoForm.get('job_title')?.dirty || empleadoForm.get('job_title')?.touched)" class="text-sm text-red-600 mt-1">
       El cargo es requerido.
-    </div>
+    </p>
   </div>
 
-  <div class="form-group">
-    <label for="fecha_contratacion">Fecha de Contratación:</label>
-    <input id="fecha_contratacion" formControlName="fecha_contratacion" type="date" class="form-control" required>
-    <div *ngIf="empleadoForm.get('fecha_contratacion')?.invalid && (empleadoForm.get('fecha_contratacion')?.touched || empleadoForm.get('fecha_contratacion')?.dirty)" class="error-message">
+  <!-- Fecha de Contratación -->
+  <div>
+    <label for="hire_date" class="block font-medium mb-1">Fecha de Contratación:</label>
+    <input
+      id="hire_date"
+      type="date"
+      formControlName="hire_date"
+      class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      [class.border-red-500]="empleadoForm.get('hire_date')?.invalid && (empleadoForm.get('hire_date')?.dirty || empleadoForm.get('hire_date')?.touched)"
+      required
+    />
+    <p *ngIf="empleadoForm.get('hire_date')?.invalid && (empleadoForm.get('hire_date')?.dirty || empleadoForm.get('hire_date')?.touched)" class="text-sm text-red-600 mt-1">
       La fecha de contratación es requerida.
-    </div>
+    </p>
   </div>
 
-  <button type="submit" class="btn-submit">Guardar</button>
+  <!-- Botón -->
+  <div class="text-center">
+    <button
+      type="submit"
+      class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded transition duration-200 disabled:opacity-50"
+      [disabled]="empleadoForm.invalid"
+    >
+      Guardar
+    </button>
+  </div>
 
-  <!-- Mensaje de éxito -->
-  <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
+  <!-- Mensajes -->
+  <div *ngIf="successMessage" class="text-green-600 text-center mt-4 font-semibold">
+    {{ successMessage }}
+  </div>
 
-  <!-- Mensaje de error -->
-  <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+  <div *ngIf="errorMessage" class="text-red-600 text-center mt-4 font-semibold">
+    {{ errorMessage }}
+  </div>
 </form>

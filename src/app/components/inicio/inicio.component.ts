@@ -5,7 +5,6 @@ import { Router } from '@angular/router';  // Importa Router para la navegación
   selector: 'app-inicio',
   standalone: true,  // Declaración como componente autónomo
   templateUrl: './inicio.component.html',
-  styleUrls: ['./inicio.component.css']
 })
 export class InicioComponent {
   constructor(private router: Router) {}  // Inyecta el servicio Router

@@ -25,7 +25,7 @@ export class EmpleadosService {
   }
 
   getEmpleado(id: number): Observable<Empleado> {
-    return this.http.get<Empleado>(`${this.apiUrl}${id}/`);
+    return this.http.get<Empleado>(`${this.apiUrl}${id}`);
   }
 
   addEmpleado(empleado: Empleado): Observable<Empleado> {

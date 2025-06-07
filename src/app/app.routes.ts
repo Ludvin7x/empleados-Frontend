@@ -8,6 +8,6 @@ export const routes: Routes = [
   { path: '', redirectTo: '/inicio', pathMatch: 'full' },
   { path: 'empleados', component: EmpleadosListaComponent },
   { path: 'empleados/nuevo', component: EmpleadoFormComponent },
-  { path: 'empleados/editar/:id', component: EmpleadoEditComponent },
+  { path: 'empleados/:id', component: EmpleadoEditComponent },
   { path: 'inicio', component: InicioComponent },
 ];

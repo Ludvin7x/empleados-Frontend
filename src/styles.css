@@ -1,4 +1,48 @@
-/* You can add global styles to this file, and also import other style files */
-body {
-    margin-top: 90px; /* Ajusta esto según el tamaño de tu barra de navegación */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+  body {
+    @apply bg-white text-gray-800 antialiased;
   }
+
+  a {
+    @apply transition-colors duration-200 ease-in-out;
+  }
+}
+
+@layer components {
+  .navbar {
+    @apply bg-white border-b border-gray-200 shadow-sm;
+  }
+
+  .navbar-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16;
+  }
+
+  .logo {
+    @apply text-xl font-semibold text-blue-600;
+  }
+
+  .nav-links {
+    @apply hidden md:flex space-x-6 text-gray-700 font-medium;
+  }
+
+  .nav-links a {
+    @apply hover:text-blue-600;
+  }
+
+  .mobile-menu {
+    @apply md:hidden px-4 pb-4 space-y-2 text-gray-700 font-medium;
+  }
+
+  .mobile-menu a {
+    @apply block hover:text-blue-600;
+  }
+
+  footer {
+    @apply bg-gray-100 text-center py-4 text-sm text-gray-500 border-t mt-12;
+  }
+}
