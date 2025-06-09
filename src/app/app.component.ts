@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { LucideAngularModule } from 'lucide-angular';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterModule, LucideAngularModule, CommonModule],
+  imports: [RouterModule, CommonModule],
   templateUrl: './app.component.html',
 })
 export class AppComponent {

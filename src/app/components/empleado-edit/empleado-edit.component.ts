@@ -4,13 +4,28 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractControl, ValidationErrors } from '@angular/forms';
 import { EmpleadosService, Empleado } from '../../services/empleados.service';
 import { DepartamentosService, Departamento } from '../../services/departamentos.service';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import Swal from 'sweetalert2';
-import { LucideAngularModule } from 'lucide-angular';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-empleado-edit',
   standalone: true,
-  imports: [CommonModule, RouterModule, ReactiveFormsModule, LucideAngularModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+  ],
   templateUrl: './empleado-edit.component.html',
 })
 export class EmpleadoEditComponent implements OnInit {
@@ -119,6 +134,6 @@ export class EmpleadoEditComponent implements OnInit {
           });
         }
       });
-    } 
+    }
   }
 }
