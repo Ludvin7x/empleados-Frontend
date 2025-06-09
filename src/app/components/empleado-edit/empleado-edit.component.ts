@@ -100,40 +100,47 @@ export class EmpleadoEditComponent implements OnInit {
     return null;
   }
 
-  onSubmit(): void {
-    this.successMessage = '';
-    this.errorMessage = '';
+onSubmit(): void {
+  this.successMessage = '';
+  this.errorMessage = '';
 
-    if (this.empleadoForm.invalid) {
-      this.empleadoForm.markAllAsTouched();
-      Swal.fire({
-        icon: 'warning',
-        title: 'Advertencia',
-        text: 'Por favor, complete correctamente todos los campos requeridos.'
-      });
-      return;
-    }
-
-    const empleadoData = this.empleadoForm.value;
-
-    if (this.empleadoId) {
-      this.empleadosService.updateEmpleado(this.empleadoId, empleadoData).subscribe({
-        next: () => {
-          Swal.fire({
-            icon: 'success',
-            title: 'Éxito',
-            text: 'Empleado actualizado con éxito!',
-            confirmButtonText: 'OK'
-          }).then(() => this.router.navigate(['/empleados']));
-        },
-        error: (error) => {
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'Error al actualizar el empleado: ' + (error.error?.message || 'Error desconocido, contacte a soporte!'),
-          });
-        }
-      });
-    }
+  if (this.empleadoForm.invalid) {
+    this.empleadoForm.markAllAsTouched();
+    Swal.fire({
+      icon: 'warning',
+      title: 'Advertencia',
+      text: 'Por favor, complete correctamente todos los campos requeridos.'
+    });
+    return;
   }
+
+  // Copia el valor del formulario
+  const empleadoData = { ...this.empleadoForm.value };
+
+  // Formatea la fecha al formato YYYY-MM-DD
+  const hireDate = new Date(empleadoData.hire_date);
+  empleadoData.hire_date = hireDate.toISOString().split('T')[0];
+
+  if (this.empleadoId) {
+    this.empleadosService.updateEmpleado(this.empleadoId, empleadoData).subscribe({
+      next: () => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Éxito',
+          text: 'Empleado actualizado con éxito!',
+          confirmButtonText: 'OK'
+        }).then(() => this.router.navigate(['/empleados']));
+      },
+      error: (error) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Error al actualizar el empleado: ' + (error.error?.message || 'Error desconocido, contacte a soporte!'),
+        });
+      }
+    });
+  }
+}
+
+
 }
