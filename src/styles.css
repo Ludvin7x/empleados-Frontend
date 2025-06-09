@@ -46,3 +46,6 @@
     @apply bg-gray-100 text-center py-4 text-sm text-gray-500 border-t mt-12;
   }
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
